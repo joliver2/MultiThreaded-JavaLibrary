@@ -2,6 +2,9 @@ package com.company;
 
 import java.io.Serializable;
 
+/**
+ * Publisher class, allows you to name and get name of publisher
+ */
 public class Publisher implements Serializable {
     private String name;
 

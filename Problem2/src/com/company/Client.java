@@ -6,7 +6,9 @@ import java.net.*;
 import java.io.*;
 import java.util.Scanner;
 
-
+/**
+ * Start of client class initializes socket, bufferedreader, dataoutput stream, and clientresponse
+ */
 public class Client {
 
     private Socket socket = null;
@@ -14,7 +16,13 @@ public class Client {
     private DataOutputStream output = null;
     private String clientResponse = "";
 
-
+    /**
+     * Main client method. Takes input from terminal, sends to socket, displays response, continues program
+     * @param address
+     * @param port
+     * @throws IOException
+     * @throws UnknownHostException
+     */
     public Client(String address, int port) throws IOException, UnknownHostException{
 
         socket = new Socket(address, port);
@@ -37,7 +45,7 @@ public class Client {
             System.out.println("Type in command separated by spaces: ");
             line = sc.nextLine();
 
-            // sents to client line of commands as string
+            // sends to client line of commands as string
             output.writeUTF(line);
 
             // gets client response
@@ -55,7 +63,12 @@ public class Client {
 
     }
 
-
+    /**
+     * Initializes the client to port 5000
+     * @param args
+     * @throws IOException
+     * @throws UnknownHostException
+     */
     public static void main(String args[]) throws IOException, UnknownHostException {
         Client client = new Client("localhost", 5000);
 

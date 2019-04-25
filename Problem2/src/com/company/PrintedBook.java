@@ -2,6 +2,9 @@ package com.company;
 
 import java.util.ArrayList;
 
+/**
+ * Start of printedBook class initializes pages and type
+ */
 public class PrintedBook extends Book {
 
     private int totalPages;
@@ -13,7 +16,16 @@ public class PrintedBook extends Book {
         this.type = "";
     }
 
-    // custom constructor
+    /**
+     * Custom constructor
+     * @param title
+     * @param location
+     * @param yearPub
+     * @param authorList
+     * @param publisher
+     * @param pages
+     * @param type
+     */
     public PrintedBook(String title, String location, int yearPub,
                        ArrayList<Author> authorList, Publisher publisher,
                        int pages, String type){
@@ -24,7 +36,10 @@ public class PrintedBook extends Book {
 
     }
 
-    // getters
+    /**
+     * Gets total pages or type of book
+     * @return the type of book or totalPages
+     */
     public int getTotalPages(){
         return this.totalPages;
     }
@@ -32,6 +47,10 @@ public class PrintedBook extends Book {
         return this.type;
     }
 
+    /**
+     * Custom setter
+     * @param pages
+     */
     // setters
     public void setTotalPages(int pages){
         this.totalPages = pages;
@@ -41,6 +60,11 @@ public class PrintedBook extends Book {
     }
 
     // overrides the toString from the base Book class
+
+    /**
+     * Overrides toString method from books and returns the value from the server
+     * @return returns the book info
+     */
     @Override
     public String toString(){
 

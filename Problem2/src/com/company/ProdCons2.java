@@ -10,8 +10,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Producer Consumer class.
+ */
 public class ProdCons2 {
 
+    /**
+     * main method for producer/consumer. Asks for user input and runs the producer consumer
+     * @param args
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -47,6 +54,9 @@ public class ProdCons2 {
 
 }
 
+/**
+ * Buffer class. Defines the size of our buffer based on user input
+ */
 class Buffer {
 
     //The buffer and it's size
@@ -75,7 +85,9 @@ class Buffer {
         serverHandler.start();
     }
 
-    //This is for the producers. buffer.put("10") adds "10" to the buffer
+    /**This is for the producers. buffer.put("10") adds "10" to the buffer
+     * @param packet
+     */
     public synchronized void put(String packet) {
         //While the buffer is full, wait()
         while(buffer.size() == sizeOfBuffer) {
@@ -91,6 +103,10 @@ class Buffer {
         notifyAll();
     }
 
+    /**
+     * Synchronization method! Very important. Gets the first added value if producer, if consumer checks if buffer is full
+     * @return packet
+     */
     //For consumers: buffer.get() returns the values as FIFO basis
     public synchronized String get() {
         //While the buffer is empty, wait() because you can't get anything
@@ -111,6 +127,9 @@ class Buffer {
 
 }
 
+/**
+ * Class that sets up the producer structure.
+ */
 class Producer implements Runnable {
 
     //The buffer used has a Linked List structure used as a queue
@@ -142,6 +161,9 @@ class Producer implements Runnable {
         }
     }
 
+    /**
+     * Producer run method. starts the producing
+     */
     public void run() {
         try {
             int i = 0;
@@ -171,7 +193,7 @@ class Producer implements Runnable {
 }
 
 
-/*
+/**
   This is the consumer class. Consumers request the values from the buffer.
 */
 class Consumer implements Runnable {
@@ -186,6 +208,10 @@ class Consumer implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
 
+    /**
+     * Consumer class that reads the buffer
+     * @param buffer
+     */
     public Consumer(Buffer buffer) {
         //buffer used is a Linked List used as a queue
         this.buffer = buffer;
@@ -205,6 +231,9 @@ class Consumer implements Runnable {
         }
     }
 
+    /**
+     * run method, starts the consuming
+     */
     public void run() {
         try{
             Random random = new Random();
@@ -229,6 +258,9 @@ class Consumer implements Runnable {
     }
 }
 
+/**
+ * Serverhandler class that uses the buffer linked list as a server. Sets up local host server
+ */
 class ServerHandler implements Runnable {
 
     //Buffer is a linked list used as a server
@@ -243,9 +275,10 @@ class ServerHandler implements Runnable {
         this.buffer = buffer;
     }
 
-    //Both producers and consumers are seen as clients.
-    //Listens to sockets that will want to be clients
-    //Creates them as new threads
+    /**Both producers and consumers are seen as clients.
+    *Listens to sockets that will want to be clients
+    *Creates them as new threads
+     */
     public void run() {
         try {
             while(true) {
@@ -260,6 +293,10 @@ class ServerHandler implements Runnable {
     }
 }
 
+/**
+ * Buffer is brought in so client handler can use it, creates in and out for read requests,
+ * sets up the client socket and the buffer used and methods of communication
+ */
 class ClientHandler implements Runnable {
 
     //The buffer is brought in so that the client handler may use it
@@ -284,9 +321,10 @@ class ClientHandler implements Runnable {
         }
     }
 
-    //the main place where values are added to the buffer and requested from the buffer
-    //When the message is "get", the consumer is requesting a value from the buffer
-    //Otherwise it's treated as a value wanting to be added to the buffer
+    /** The main place where values are added to the buffer and requested from the buffer
+    * When the message is "get", the consumer is requesting a value from the buffer
+    * Otherwise it's treated as a value wanting to be added to the buffer
+     */
     public void run() {
         try {
             while(true) {

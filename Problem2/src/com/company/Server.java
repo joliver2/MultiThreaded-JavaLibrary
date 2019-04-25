@@ -4,7 +4,9 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 
-
+/**
+ * Main server class. Initializes sockets, sets up server, and
+ */
 public class Server {
 
     private Socket socket = null;
@@ -63,13 +65,18 @@ public class Server {
 
     }
 
-
+    /**
+     * Server thread. Sets up socket for server thread
+     */
     class ServerThread extends Thread{
         private Socket socket;
         public ServerThread(Socket socket) throws IOException{
             this.socket = socket;
         }
 
+        /**
+         * run method to run the server. Displays the menu to the client
+         */
         public void run(){
 
             DataInputStream input = null;
@@ -188,6 +195,11 @@ public class Server {
         }
     }
 
+    /**
+     * Main method for the server. Starts it on port 5000
+     * @param args
+     * @throws IOException
+     */
     public static void main (String[] args) throws IOException{
 
         Server server = new Server(5000);
